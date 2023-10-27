@@ -5,7 +5,7 @@ from models import storage
 from models.state import State
 
 
-@app_views.route('/states', methods=['GET', 'POST'] strict_slashes=False)
+@app_views.route('/states', methods=['GET', 'POST'], strict_slashes=False)
 @app_views.route('/states/<state_id>', methods=['GET', 'PUT', 'DELETE'], strict_slashes=False)
 def state_list(state_id=None):
     """ a function that list all states"""
