@@ -5,8 +5,8 @@ from models import storage
 from models.state import State
 
 
-@app_views.route('/states', strict_slashes=False)
-@app_views.route('/states/<state_id>', methods=['GET', 'POST', 'PUT', 'DELETE'], strict_slashes=False)
+@app_views.route('/states', methods=['GET', 'POST'] strict_slashes=False)
+@app_views.route('/states/<state_id>', methods=['GET', 'PUT', 'DELETE'], strict_slashes=False)
 def state_list(state_id=None):
     """ a function that list all states"""
     if state_id is None:
@@ -20,11 +20,6 @@ def state_list(state_id=None):
 
         if request.method == 'GET':
             return jsonify(state.to_dict())
-        
-        if request.method == 'DELETE':
-            storage.delete(state.to_dict())
-            storage.save()
-            return jsonify({}), 200
 
         if request.method == 'POST':
             data = request.get_json()
@@ -32,7 +27,7 @@ def state_list(state_id=None):
                 return jsonify({'error': 'Not a JSON'}), 400
             elif data.get('name') is None:
                 return jsonify({'error': 'Missing name'}), 400
-            storage.new(**data)
+            storage.new(data)
             storage.save()
             return jsonify(data.to_dict()), 201
         
@@ -46,4 +41,8 @@ def state_list(state_id=None):
             storage.save()
             return jsonify(state.to_dict()), 200
 
-                
+        if request.method == 'DELETE':
+            storage.delete(state)
+            storage.save()
+            return jsonify({}), 200
+
