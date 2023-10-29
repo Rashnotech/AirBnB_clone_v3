@@ -11,11 +11,10 @@ from models.user import User
 def place_list(city_id=None):
     """Retrieve and create places"""
     if city_id is None and request.method == 'GET':
-        cities = storage.get(City, city_id)
-        if cities is None:
-            return abort(404)
-        place_list = [place.to_dict() for place in city.values()
-                      for city in cities.values()]
+        city = storage.get(City, city_id)
+        if city is None:
+            abort(404)
+        place_list = [place.to_dict() for place in city.places]
         return jsonify(place_list), 200
 
     if request.method == 'POST' and city_id is None:
@@ -38,9 +37,9 @@ def place_list(city_id=None):
                  strict_slashes=False)
 def place(place_id=None):
     """ a function that list all states"""
-    places = storage.get(Place, place_id)
-    if places is None:
-        return abort(404)
+    place = storage.get(Place, place_id)
+    if place is None:
+        abort(404)
 
     if request.method == 'GET':
         return jsonify(places.to_dict())
