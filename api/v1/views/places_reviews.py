@@ -2,7 +2,7 @@
 """ a module that handles all default RESTFul API actions"""
 from models import storage
 from models.review import Review
-from api.v1.views import app_views, jsonify, request
+from api.v1.views import app_views, jsonify, request, abort
 from models.place import Place
 from models.user import User
 
@@ -16,7 +16,6 @@ def list_reviews(pid=None):
     if request.method == 'GET':
         reviews = [reviews.to_dict() for reviews in place.reviews]
         return jsonify(reviews), 200
-    
     if request.method == 'POST':
         # Create a new review
         data = request.get_json()
@@ -52,7 +51,7 @@ def do_reviews(rid=None):
         match = ['id', 'user_id', 'place_id', 'created_at', 'updated_at']
         for key, val in data.items():
             if key not in match:
-                setattr(review, key, value)
+                setattr(review, key, val)
         new_review = Review(**data)
         new_review.save()
         return jsonify(new_review.to_dict()), 200

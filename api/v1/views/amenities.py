@@ -2,7 +2,7 @@
 """ a module that view amenity """
 from models.amenity import Amenity
 from models import storage
-from api.v1.views import app_views, jsonify, request
+from api.v1.views import app_views, jsonify, request, abort
 
 
 @app_views.route('/amenities', methods=['GET', 'POST'], strict_slashes=False)

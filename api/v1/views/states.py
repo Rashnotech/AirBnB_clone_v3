@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """ a module that retrieves states """
-from api.v1.views import app_views, jsonify, request
+from api.v1.views import app_views, jsonify, request, abort
 from models import storage
 from models.state import State
 
