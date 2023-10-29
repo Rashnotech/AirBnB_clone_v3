@@ -1,11 +1,13 @@
 #!/usr/bin/python3
 """ a module for app entry """
 from flask import Flask, jsonify
+from flask_cors import CORS
 from models import storage
 from api.v1.views import app_views
 from os import getenv
 
 app = Flask(__name__)
+CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 app.register_blueprint(app_views)
 
 
