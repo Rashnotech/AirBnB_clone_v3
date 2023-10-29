@@ -48,8 +48,9 @@ def place(place_id=None):
         data = request.get_json()
         if data is None:
             return jsonify({'error': 'Not a JSON'}), 400
+        match = ['id', 'user_id', 'city_id', 'created_at', 'updated_at']
         for key, value in data.items():
-            if key != 'id' and key != 'user_id' and key != 'city_id' and key != 'created_at' and key != 'updated_at':
+            if key not in match:
                 setattr(places, key, value)
         storage.save()
         return jsonify(places.to_dict()), 200

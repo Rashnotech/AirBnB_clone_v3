@@ -3,12 +3,12 @@
 from models import storage
 from models import place
 from models import amenity
-from api.v1.views import app_views
+from api.v1.views import app_views, jsonify, request
 from models.place import Place
 from models.amenity import Amenity
 
 
-@app_views.route('places/<id>/amenities', methods=['GET'], strict_slashes=False)
+@app_views.route('/places/<id>/amenities', methods=['GET'], strict_slashes=False)
 def view_amenities(id=None):
     """View a list of amenities associated with a Place"""
     places = storage.get(Place, id)
@@ -18,7 +18,7 @@ def view_amenities(id=None):
     return jsonify(amenities_list), 200
 
 
-@app_views.route('places/<pid>/amenities/<aid>', methods=['DELETE'],
+@app_views.route('/places/<pid>/amenities/<aid>', methods=['DELETE'],
                  strict_slashes=False)
 def del_amenities(pid=None, aid=None):
     """Delete an amenity object from a place"""
@@ -35,7 +35,7 @@ def del_amenities(pid=None, aid=None):
     return jsonify({}), 200
 
 
-@app_views.route('places/<pid>/amenities/<aid>', methods=['POST'],
+@app_views.route('/places/<pid>/amenities/<aid>', methods=['POST'],
                  strict_slashes=False)
 def post_amenities(pid=None, aid=None):
     """Link an amenity object to a place"""

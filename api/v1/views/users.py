@@ -40,8 +40,9 @@ def user(user_id=None):
         data = request.get_json()
         if data is None:
             abort(400, 'Not a JSON')
+        match = ['id', 'email', 'created_at', 'updated_at']
         for key, value in data.items():
-            if key != 'id' and key != 'email' and key != 'created_at' and key != 'updated_at':
+            if key not in match:
                 setattr(users, key, value)
         storage.save()
         return jsonify(users.to_dict()), 200

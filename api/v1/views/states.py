@@ -36,8 +36,9 @@ def state_list(state_id=None):
             data = request.get_json()
             if data is None:
                 abort(400, 'Not a JSON')
+            match = ['id', 'created_at', 'updated_at']
             for key, value in data.items():
-                if key != 'id' and key != 'created_at' and key != 'updated-at':
+                if key not in match:
                     setattr(state, key, value)
             storage.save()
             return jsonify(state.to_dict()), 200

@@ -35,8 +35,9 @@ def amenities_list(amenity_id=None):
             data = request.get_json()
             if data is None:
                 return jsonify({'error': 'Not a JSON'}), 400
+            match = ['id', 'created_at', 'updated_at']
             for key, value in data.items():
-                if key != 'id' and key != 'created_at' and key != 'updated_at':
+                if key not in match:
                     setattr(state, attr, value)
             storage.save()
             return jsonify(state.to_dict()), 200
