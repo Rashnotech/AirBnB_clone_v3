@@ -41,8 +41,7 @@ def user(user_id=None):
         if data is None:
             abort(400, 'Not a JSON')
         for key, value in data.items():
-            if key != 'id' and key != 'email' and key != 'created_at'
-            and key != 'updated_at':
+            if key != 'id' and key != 'email' and key != 'created_at' and key != 'updated_at':
                 setattr(users, key, value)
         storage.save()
         return jsonify(users.to_dict()), 200
