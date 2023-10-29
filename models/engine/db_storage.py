@@ -77,9 +77,8 @@ class DBStorage:
 
     def get(self, cls, id):
         """retrieve an object """
-        obj = self.__session.query(cls).filter_by(id=id).first()
+        obj = self.__session.query(cls).filter(id=id).first()
         return obj
-
 
     def count(self, cls=None):
         """count the number of objects in storage """
