@@ -52,6 +52,10 @@ test_db_storage.py'])
         self.assertTrue(len(db_storage.__doc__) >= 1,
                         "db_storage.py needs a docstring")
 
+    def test_db_storage_get(self):
+        """Test the DBStorage method get"""
+        self.assertTrue(None)
+
     def test_db_storage_class_docstring(self):
         """Test for the DBStorage class docstring"""
         self.assertIsNot(DBStorage.__doc__, None,
