@@ -7,7 +7,8 @@ from models.city import City
 from models.user import User
 
 
-@app_views.route('/cities/<city_id>/places', methods=['GET', 'POST'])
+@app_views.route('/cities/<city_id>/places', methods=['GET', 'POST'],
+                 strict_slashes=False)
 def place_list(city_id=None):
     """Retrieve and create places"""
     if city_id is None and request.method == 'GET':
@@ -20,11 +21,11 @@ def place_list(city_id=None):
     if request.method == 'POST' and city_id is None:
         data = request.get_json()
         if data is None:
-            return jsonify({'error': 'Not a JSON'}), 400
+            abort(400, 'Not a JSON')
         if data.get('user_id') is None:
-            return jsonify({'error': 'Missing user_id'}), 400
+            abort(400, 'Missing user_id')
         elif data.get('name') is None:
-            return jsonify({'error': 'Missing name'}), 400
+            abort(400, 'Missing name')
         users = storage.get(User, data.get('user_id'))
         if users is None:
             abort(404)
@@ -47,7 +48,7 @@ def place(place_id=None):
     if request.method == 'PUT':
         data = request.get_json()
         if data is None:
-            return jsonify({'error': 'Not a JSON'}), 400
+            abort(400, 'Not a JSON')
         match = ['id', 'user_id', 'city_id', 'created_at', 'updated_at']
         for key, value in data.items():
             if key not in match:
