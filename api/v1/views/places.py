@@ -11,20 +11,20 @@ from models.user import User
                  strict_slashes=False)
 def place_list(city_id=None):
     """Retrieve and create places"""
-    if city_id is None and request.method == 'GET':
-        city = storage.get(City, city_id)
-        if city is None:
-            abort(404)
+    city = storage.get(City, city_id)
+    if city is None:
+        abort(404)
+    if request.method == 'GET':
         place_list = [place.to_dict() for place in city.places]
         return jsonify(place_list), 200
 
-    if request.method == 'POST' and city_id is None:
+    if request.method == 'POST':
         data = request.get_json()
         if data is None:
             abort(400, 'Not a JSON')
         if data.get('user_id') is None:
             abort(400, 'Missing user_id')
-        elif data.get('name') is None:
+        if data.get('name') is None:
             abort(400, 'Missing name')
         users = storage.get(User, data.get('user_id'))
         if users is None:
