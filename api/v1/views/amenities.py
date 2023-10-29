@@ -6,7 +6,8 @@ from api.v1.views import app_views, jsonify, request
 
 
 @app_views.route('/amenities', methods=['GET', 'POST'], strict_slashes=False)
-@app_views.route('/amenities/<amenity_id>', methods=['GET', 'DELETE', 'PUT'], strict_slashes=False)
+@app_views.route('/amenities/<amenity_id>',
+                 methods=['GET', 'DELETE', 'PUT'], strict_slashes=False)
 def amenities_list(amenity_id=None):
     """ a function that list amenities """
     if amenity_id is None and request.method == 'GET':
@@ -44,4 +45,3 @@ def amenities_list(amenity_id=None):
             storage.delete(amenity)
             storage.save()
             return jsonify({}), 200
-

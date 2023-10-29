@@ -12,13 +12,15 @@ from models.user import User
 
 # list of classes
 classes = {'amenities': Amenity, 'cities': City,
-            'reviews': Review, 'states': State,
-            'users': User}
+           'reviews': Review, 'states': State,
+           'users': User}
+
 
 @app_views.route('/status')
 def status():
     """ a function returns status"""
     return jsonify({'status': 'OK'}), 200
+
 
 @app_views.route('/stats')
 def stats():

@@ -14,7 +14,8 @@ def place_list(city_id=None):
         cities = storage.get(City, city_id)
         if cities is None:
             return abort(404)
-        place_list = [place.to_dict() for place in city.values() for city in cities.values()]
+        place_list = [place.to_dict() for place in city.values()
+                      for city in cities.values()]
         return jsonify(place_list), 200
 
     if request.method == 'POST' and city_id is None:
@@ -33,8 +34,8 @@ def place_list(city_id=None):
         return jsonify(new_place.to_dict()), 201
 
 
-
-@app_views.route('/places/<place_id>', methods=['GET', 'PUT', 'DELETE'], strict_slashes=False)
+@app_views.route('/places/<place_id>', methods=['GET', 'PUT', 'DELETE'],
+                 strict_slashes=False)
 def place(place_id=None):
     """ a function that list all states"""
     places = storage.get(Place, place_id)
@@ -49,7 +50,8 @@ def place(place_id=None):
         if data is None:
             return jsonify({'error': 'Not a JSON'}), 400
         for key, value in data.items():
-            if key != 'id' and key != 'user_id' and key != 'city_id' and key != 'created_at' and key != 'updated_at':
+            if key != 'id' and key != 'user_id' and key != 'city_id'
+            and key != 'created_at' and key != 'updated_at':
                 setattr(places, key, value)
         storage.save()
         return jsonify(places.to_dict()), 200
