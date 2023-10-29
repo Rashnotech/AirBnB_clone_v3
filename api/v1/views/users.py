@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+""" a module that handles all default RESTFul API"""
 from api.v1.views import app_views, jsonify, request, abort
 from models import storage
 from models.user import User
