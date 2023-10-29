@@ -13,7 +13,7 @@ from models.user import User
 # list of classes
 classes = {'amenities': Amenity, 'cities': City,
            'reviews': Review, 'states': State,
-           'users': User}
+           'users': User, 'places': Place}
 
 
 @app_views.route('/status')
@@ -22,10 +22,10 @@ def status():
     return jsonify({'status': 'OK'}), 200
 
 
-@app_views.route('/stats', methods=['GET'], strict_slashes=False)
+@app_views.route('/stats', strict_slashes=False)
 def stats():
     """ a function that return stats"""
     statistics = {}
     for key, value in classes.items():
         statistics[key] = storage.count(value)
-    return jsonify(statistics.to_dict()), 200
+    return jsonify(statistics), 200
