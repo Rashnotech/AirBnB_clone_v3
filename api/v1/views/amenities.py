@@ -5,8 +5,9 @@ from models import storage
 from api.v1.views import app_views, jsonify, request, abort
 
 
-@app_views.route('/amenities', methods=['GET', 'POST'])
-@app_views.route('/amenities/<amenity_id>', methods=['GET', 'DELETE', 'PUT'])
+@app_views.route('/amenities', methods=['GET', 'POST'], strict_slashes=False)
+@app_views.route('/amenities/<amenity_id>', methods=['GET', 'DELETE', 'PUT'],
+                 strict_slashes=False)
 def amenities_list(amenity_id=None):
     """ a function that list amenities """
     if amenity_id is None and request.method == 'GET':

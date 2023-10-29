@@ -6,7 +6,7 @@ from models.city import City
 from models.state import State
 
 
-@app_views.route('/states/<sid>/cities', methods=['GET', 'POST'])
+@app_views.route('/states/<sid>/cities', methods=['GET', 'POST'], strict_slashes=False)
 def show_statelist(sid=None):
     """Retrieves the list of all city in state object"""
     state = storage.get(State, sid)
@@ -29,7 +29,8 @@ def show_statelist(sid=None):
         return jsonify(new_city.to_dict()), 201
 
 
-@app_views.route('/cities/<cid>', methods=['GET', 'PUT', 'DELETE'])
+@app_views.route('/cities/<cid>', methods=['GET', 'PUT', 'DELETE'],
+                 strict_slashes=False)
 def city_list(cid=None):
     """Retrieves the list of searched city """
     city = storage.get(City, cid)

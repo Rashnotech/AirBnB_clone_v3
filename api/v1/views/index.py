@@ -22,7 +22,7 @@ def status():
     return jsonify({'status': 'OK'}), 200
 
 
-@app_views.route('/stats')
+@app_views.route('/stats', strict_slashes=False)
 def stats():
     """ a function that return stats"""
     statistics = {}
