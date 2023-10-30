@@ -43,7 +43,7 @@ def place(place_id=None):
         abort(404)
 
     if request.method == 'GET':
-        return jsonify(places.to_dict())
+        return jsonify(place.to_dict())
 
     if request.method == 'PUT':
         data = request.get_json()
@@ -52,11 +52,11 @@ def place(place_id=None):
         match = ['id', 'user_id', 'city_id', 'created_at', 'updated_at']
         for key, value in data.items():
             if key not in match:
-                setattr(places, key, value)
+                setattr(place, key, value)
         storage.save()
-        return jsonify(places.to_dict()), 200
+        return jsonify(place.to_dict()), 200
 
     if request.method == 'DELETE':
-        storage.delete(places)
+        storage.delete(place)
         storage.save()
         return jsonify({}), 200
