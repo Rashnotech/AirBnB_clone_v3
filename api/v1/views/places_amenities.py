@@ -15,7 +15,7 @@ def view_amenities(id=None):
     places = storage.get(Place, id)
     if places is None:
         abort(404)
-    amenities_list = [amenity.to_dict() for amenity in place.amenities]
+    amenities_list = [amenity.to_dict() for amenity in places.amenities]
     return jsonify(amenities_list), 200
 
 
@@ -28,7 +28,7 @@ def del_amenities(pid=None, aid=None):
     if place is None or amenity is None:
         abort(404)
     # Amenity is not linked to the place, raise a 404 error
-    if amenity not in places.amenities:
+    if amenity not in place.amenities:
         abort(404)
     # Delete the amenity from the place's amenities
     place.amenities.remove(amenity)
