@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" a module that retrieves states """
+""" a module that handles all default RESTFul API actions"""
 from api.v1.views import app_views, jsonify, request, abort
 from models import storage
 from models.place import Place
