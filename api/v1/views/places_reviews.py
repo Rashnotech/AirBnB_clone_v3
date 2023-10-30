@@ -31,7 +31,6 @@ def list_reviews(pid=None):
             abort(400, 'Missing text')
         data['place_id'] = pid
         new_review = Review(**data)
-        new_review.place_id = place.id
         new_review.save()
         return jsonify(new_review.to_dict()), 201
 
