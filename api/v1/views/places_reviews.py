@@ -7,7 +7,8 @@ from models.place import Place
 from models.user import User
 
 
-@app_views.route('/places/<pid>/reviews', methods=['GET', 'POST'])
+@app_views.route('/places/<pid>/reviews', methods=['GET', 'POST'],
+                 strict_slashes=False)
 def list_reviews(pid=None):
     """Transform review"""
     place = storage.get(Place, pid)
@@ -24,7 +25,7 @@ def list_reviews(pid=None):
         user = storage.get(User, data.get('user_id'))
         if user is None:
             abort(404)
-        if 'user_id' not in data:
+        if data.get('user_id') is None:
             abort(400, 'Missing user_id')
         if data.get('text') is None:
             abort(400, 'Missing text')
@@ -34,7 +35,8 @@ def list_reviews(pid=None):
         return jsonify(new_review.to_dict()), 201
 
 
-@app_views.route('/reviews/<rid>', methods=['DELETE', 'PUT', 'GET'])
+@app_views.route('/reviews/<rid>', methods=['DELETE', 'PUT', 'GET'],
+                 strict_slashes=False)
 def do_reviews(rid=None):
     """ Transform reviews """
     review = storage.get(Review, rid)
