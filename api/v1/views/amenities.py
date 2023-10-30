@@ -39,7 +39,7 @@ def update_amenities(aid=None):
         match = ['id', 'created_at', 'updated_at']
         for key, value in data.items():
             if key not in match:
-                setattr(amenity, attr, value)
+                setattr(amenity, key, value)
         storage.save()
         return jsonify(state.to_dict()), 200
 
