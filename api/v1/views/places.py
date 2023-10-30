@@ -43,7 +43,7 @@ def place(place_id=None):
         abort(404)
 
     if request.method == 'GET':
-        return jsonify(place.to_dict())
+        return jsonify(place.to_dict()), 200
 
     if request.method == 'PUT':
         data = request.get_json()
