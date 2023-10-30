@@ -24,11 +24,11 @@ def place_list(city_id=None):
             abort(400, 'Not a JSON')
         if data.get('user_id') is None:
             abort(400, 'Missing user_id')
-        if data.get('name') is None:
-            abort(400, 'Missing name')
         users = storage.get(User, data.get('user_id'))
         if users is None:
             abort(404)
+        if data.get('name') is None:
+            abort(400, 'Missing name')
         new_place = Place(**data)
         new_place.save()
         return jsonify(new_place.to_dict()), 201
