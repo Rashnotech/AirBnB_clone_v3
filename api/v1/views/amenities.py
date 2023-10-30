@@ -41,7 +41,7 @@ def update_amenities(aid=None):
             if key not in match:
                 setattr(amenity, key, value)
         storage.save()
-        return jsonify(state.to_dict()), 200
+        return jsonify(amenity.to_dict()), 200
 
     if request.method == 'DELETE':
         storage.delete(amenity)
