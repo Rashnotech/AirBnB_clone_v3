@@ -29,6 +29,7 @@ def place_list(city_id=None):
             abort(404)
         if data.get('name') is None:
             abort(400, 'Missing name')
+        data['city_id'] = city_id
         new_place = Place(**data)
         new_place.save()
         return jsonify(new_place.to_dict()), 201
