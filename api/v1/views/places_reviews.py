@@ -8,7 +8,7 @@ from models.user import User
 
 
 @app_views.route('/places/<pid>/reviews', methods=['GET', 'POST'],
-                 strict_slahes=False)
+                 strict_slashes=False)
 def list_reviews(pid=None):
     """Transform review"""
     place = storage.get(Place, pid)
