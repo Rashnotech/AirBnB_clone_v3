@@ -7,7 +7,8 @@ from models.place import Place
 from models.user import User
 
 
-@app_views.route('/places/<pid>/reviews', methods=['GET', 'POST'])
+@app_views.route('/places/<pid>/reviews', methods=['GET', 'POST'],
+                 strict_slahes=False)
 def list_reviews(pid=None):
     """Transform review"""
     place = storage.get(Place, pid)
@@ -34,7 +35,8 @@ def list_reviews(pid=None):
         return jsonify(new_review.to_dict()), 201
 
 
-@app_views.route('/reviews/<rid>', methods=['DELETE', 'PUT', 'GET'])
+@app_views.route('/reviews/<rid>', methods=['DELETE', 'PUT', 'GET'],
+                 strict_slashes=False)
 def do_reviews(rid=None):
     """ Transform reviews """
     review = storage.get(Review, rid)
